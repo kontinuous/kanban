@@ -1,0 +1,15 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index
+
+GET     /boards                     controllers.Boards.index
+GET     /boards/:bid                controllers.Boards.show(bid: Long)
+POST    /boards/:bid                controllers.Boards.update(bid: Long)
+POST    /boards                     controllers.Boards.create
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+
