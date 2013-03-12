@@ -17,11 +17,17 @@ object Boards extends Controller {
   }
 
   def show(bid: Long) = Action {
-    Ok(Json.toJson("1111"))
+    Ok(Json.toJson(Board.show(bid)))
   }
 
-  def update(bid: Long) = Action {
-    Ok(Json.toJson("1111"))
+  def update(bid: Long) = Action(parse.json) { request =>
+    request.body.validate[Board].fold(
+      valid = { board =>
+        Board.update(bid, board)
+        Ok(Json.toJson(Board.show(bid)))
+      },
+      invalid = ( e => BadRequest(e.toString) )
+    )
   }
 
   def create = Action(parse.json) { request =>
