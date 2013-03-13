@@ -3,27 +3,51 @@
     <h4 class="dashboard">
         <a href="#">Dashboard</a>
     </h4>
-</div>
-<div ng-controller="TaskCtrl" class="large-10 columns" id="main">
-  <div class="large-4 columns panel" ng-repeat="status in statuses">
-    <h1>{{status.name}}</h1>
-    <p>Total {{groupped[status.name].length}}</p>
-
-    <ul class="tasks" ui-sortable="{connectWith:'.tasks', dropOnEmpty: true, update: syncModel}" ng-model="groupped[status.name]">
-      <li ng-repeat="task in groupped[status.name]">
-        <span>{{task.name}}</span>
+    <ul id="projects">
+      <li>
+        <span class="toggle"></span>
+        <input type="text" style="display: none;"><h4 class="groupName">AiLabs</h4>
+        <dl class="options">
+          <dt>Options</dt>
+        </dl>
+        <ul>
+          <li>
+            <input type="text" style="display: none;"><a class="name" href="#/projects/1/tasks">Kontinuous</a>
+            <button class="delete" href="/projects/1">Delete</button>
+          </li>
+          <li>
+            <input type="text" style="display: none;"><a class="name" href="#/projects/2/tasks">Kanban</a>
+            <button class="delete" href="/projects/2">Delete</button>
+          </li>
+          <li>
+            <input type="text" style="display: none;"><a class="name" href="#/projects/3/tasks">Project X</a>
+            <button class="delete" href="/projects/3">Delete</button>
+          </li>
+        </ul>
       </li>
     </ul>
-  </div>
-  <form ng-submit="addTodo()">
-    <div class="row collapse">
-      <div class="small-10 columns">
-        <input type="text" ng-model="todoText" placeholder="add new task here">
-      </div>
-      <div class="small-2 columns">
-        <input type="button" class="button prefix"  value="Add">
-      </div>
+  <button id="newGroup">New group</button>
+</div>
+<div ng-controller="TaskCtrl" class="large-10 columns" id="main">
+  <div class="large-12 columns">
+    <div class="large-4 columns folder" ng-repeat="status in statuses">
+      <header>
+        <h3>{{status.name}}({{groupped[status.name].length}})</h3>
+      </header>
+      <ul class="tasks list" ui-sortable="{connectWith:'.tasks', dropOnEmpty: true, update: syncModel}" ng-model="groupped[status.name]">
+        <li ng-repeat="task in groupped[status.name]">
+          <h4>{{task.name}}</h4>
+        </li>
+      </ul>
     </div>
-  </form>
+  </div>
+  <div class="large-4 columns">
+    <form class="addTask" ng-submit="addTodo()">
+      <input type="text" name="taskBody" ng-model="todoText" placeholder="New task...">
+      <input type="submit">
+    </form>
+  </div>
+  <div class="large-8 columns">
+  </div>
 </div>
 </div>

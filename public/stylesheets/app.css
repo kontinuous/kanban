@@ -30,23 +30,19 @@ body, html {
     height:100%;
 }
 
+h3, h4, dl, ul {
+    margin: 0;
+}
+
+ul, ol {
+    list-style: none;
+    padding: 0;
+}
+
 body {
     color: #2a3a48;
+    background: #c7d1d8;
     font: 13px "Lucida Grande", "Helvetica Neue", sans-serif;
-}
-
-ul.tasks li {
-    padding: 5px;
-    border: 1px solid #999;
-    background: #eee;
-    margin: 5px;
-    cursor: move;
-    list-style-type: none;
-}
-
-ul.tasks {
-  padding: 5px;
-  background: #eee;
 }
 
 .ailabs-header {
@@ -55,6 +51,8 @@ ul.tasks {
 
 .row {
     max-width: 200em;
+    margin: 0;
+    padding: 0;
 }
 
 #main {
@@ -65,6 +63,8 @@ ul.tasks {
 #dashboard {
     background: #e1e7ec;
     min-height: 300px;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 body .dashboard {
@@ -137,6 +137,15 @@ body .header a {
     cursor: pointer;
 }
 
+#user dd a:hover,
+#user dd button:hover {
+    background: rgba(187, 255, 255, 0.30000000000000004);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(187, 255, 255, 0.30000000000000004)), to(rgba(187, 255, 255, 0)));
+    background-image: -moz-linear-gradient(top, rgba(187, 255, 255, 0.30000000000000004), rgba(187, 255, 255, 0));
+    background-color: #2a3a48;
+    color: #ffffff;
+}
+
 #user * {
     display: inline-block;
 }
@@ -146,3 +155,159 @@ body .header a {
     font-size: 11px;
 }
 
+#projects > li {
+    position: relative;
+    padding: 10px 5px 5px 25px;
+}
+
+#projects > li > h4 {
+    display: block;
+    margin: 0 0 5px;
+    padding: 0 1px;
+    position: relative;
+    color: #6f8193;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+#projects > li .toggle {
+    content: " ";
+    position: absolute;
+    left: 8px;
+    top: 12px;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    background: url(/images/icons/drawer.folder.png) 0 0 no-repeat;
+}
+
+.options {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    font-size: 11px;
+}
+
+.options dt {
+    width: inherit;
+    cursor: pointer;
+    height: inherit;
+    text-indent: -9999em;
+    background: url(/images/icons/options.png) 0 0 no-repeat;
+}
+
+#projects > li .options {
+    position: absolute;
+    top: 7px;
+    right: 5px;
+}
+
+.delete {
+    position: absolute;
+    top: 0px;
+    right: 0;
+    border: none;
+    padding: 0;
+    width: 18px;
+    height: 20px;
+    overflow: hidden;
+    text-indent: -99em;
+    background: url(/images/icons/delete.png) 0 1px no-repeat;
+    -moz-transition: opacity 300ms ease-in-out;
+    -webkit-transition: opacity 300ms ease-in-out;
+    -o-transition: opacity 300ms ease-in-out;
+    transition: opacity 300ms ease-in-out;
+    -webkit-transition-delay: 100ms;
+    z-index: 7;
+    cursor: pointer;
+}
+
+#projects > li li .delete {
+    opacity: 0.1;
+}
+
+#projects > li li {
+    position: relative;
+    padding: 0 0 0 25px;
+    background: url(/images/icons/folder.png) 1px 1px no-repeat;
+}
+
+#projects > li li a {
+    display: block;
+    color: #2a3a48;
+    padding: 2px;
+}
+
+#newGroup {
+    font-size: 13px;
+    display: inline-block;
+    padding: 2px 5px;
+    border-radius: 3px;
+    border: 1px solid #192937;
+    background: rgba(187, 255, 255, 0.19999999999999996);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(187, 255, 255, 0.19999999999999996)), to(rgba(187, 255, 255, 0)));
+    background-image: -moz-linear-gradient(top, rgba(187, 255, 255, 0.19999999999999996), rgba(187, 255, 255, 0));
+    background-color: #2a3a48;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+    color: #c7d1d8;
+    cursor: pointer;
+    margin: 15px 25px;
+}
+
+#newGroup:hover {
+    background: rgba(187, 255, 255, 0.30000000000000004);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(187, 255, 255, 0.30000000000000004)), to(rgba(187, 255, 255, 0)));
+    background-image: -moz-linear-gradient(top, rgba(187, 255, 255, 0.30000000000000004), rgba(187, 255, 255, 0));
+    background-color: #2a3a48;
+    color: #ffffff;
+}
+
+.row .columns {
+    padding: 0;
+}
+
+.folder {
+    border: 1px solid #9ba5ad;
+    background: #dbe1e5;
+    border-radius: 5px;
+    margin: 0 0 20px;
+}
+
+.folder > header {
+    border-radius: 5px 5px 0 0;
+    background: #f2f5f8;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f5f8), to(#dfe2e6));
+    background-image: -moz-linear-gradient(top, #f2f5f8, #dfe2e6);
+    border-bottom: inherit;
+    padding: 4px 7px;
+}
+
+.folder > ul > li {
+    position: relative;
+    padding: 4px 20px 4px 7px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    -webkit-user-select: text;
+}
+
+form.addTask {
+    background: #ffffff;
+    padding: 5px 5px 5px 5px;
+}
+
+.addTask input {
+    outline: none;
+}
+
+.addTask [name=taskBody] {
+    width: 100%;
+    border: 0;
+}
+
+.addTask [type=submit] {
+    position: absolute;
+    left: -3000px;
+    visibility: hidden;
+}
