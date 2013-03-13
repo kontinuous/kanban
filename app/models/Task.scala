@@ -57,7 +57,7 @@ object Task {
            update task
               set name = {name},
                   status = {status},
-                  board_id = {board_id}
+                  board = {board_id}
             where id = {id}
         """).on(
         'id -> id,
