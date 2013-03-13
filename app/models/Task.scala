@@ -20,6 +20,7 @@ import anorm.Id
 case class Task(id: Pk[Long], name: String, status: String, board: Long)
 
 object Task {
+
   val task = {
     long("id") ~
     str("name") ~
@@ -27,6 +28,12 @@ object Task {
     long("board") map {
       case id~name~status~board_id => Task(Id(id), name, status, board_id)
     }
+  }
+
+  def by_board(bid: Long): List[Task] = DB.withConnection { implicit c =>
+    SQL("select * from task where board = {board_id}").on(
+      'board_id -> bid
+    ).as(task *)
   }
 
   def all(): List[Task] = DB.withConnection { implicit c =>

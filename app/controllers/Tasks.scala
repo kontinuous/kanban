@@ -13,7 +13,7 @@ import play.api.mvc.{Controller, Action}
  */
 object Tasks extends Controller {
   def index(bid: Long) = Action {
-    Ok(Json.toJson(Task.all()))
+    Ok(Json.toJson(Task.by_board(bid)))
   }
 
   def show(bid: Long, id: Long) = Action {
