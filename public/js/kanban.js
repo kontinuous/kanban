@@ -12,6 +12,18 @@ function ProfileCtrl($scope, User, $http) {
   });
 }
 
+function BoardEditorCtrl($scope, Board) {
+    $scope.enableEdit = function() {
+        $scope.edit = true;
+    };
+
+    $scope.disableEdit = function() {
+        $scope.board.$save({boardId: $scope.board.id}, function() {
+            $scope.edit = false;
+        });
+    };
+}
+
 function BoardCtrl($scope, Board) {
 
   $scope.boards = Board.query();

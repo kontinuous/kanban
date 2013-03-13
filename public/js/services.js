@@ -15,4 +15,15 @@ angular.module('kanbanServices', ['ngResource']).
           when('/boards/:boardId/edit', {templateUrl: 'partials/board-edit.html', controller: TaskCtrl}).
           when('/profile', {templateUrl: 'partials/user-details.html', controller: ProfileCtrl }).
           otherwise({redirectTo: '/boards'});
-    }]);
+    }]).
+    directive ('unfocus', function() { return {
+        restrict: 'A',
+        link: function (scope, element, attribs) {
+
+            element[0].focus();
+
+            element.bind ("blur", function() {
+                scope.$apply(attribs["unfocus"]);
+            });
+        }
+    } });

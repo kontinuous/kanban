@@ -11,8 +11,15 @@
           <dt>Options</dt>
         </dl>
         <ul>
-          <li ng-repeat="board in boards">
-            <input type="text" style="display: none;"><a class="name" href="#/projects/1/tasks">{{board.name}}</a>
+          <li ng-repeat="board in boards" ng-controller="BoardEditorCtrl">
+            <ng-switch on="edit">
+              <div ng-switch-when="true">
+                <input type="text" ng-model="board.name" unfocus="disableEdit()" value="{{board.name}}">
+              </div>
+              <div ng-switch-default ng-click="enableEdit()">
+                <a class="name" href="#/boards/{{board.id}}">{{board.name}}</a><span ng-click="enableEdit">edit</span>
+              </div>
+            </ng-switch>
             <button class="delete" href="/projects/1">Delete</button>
           </li>
         </ul>
