@@ -1,5 +1,5 @@
 <div class="row">
-<div class="large-2 columns" id="dashboard">
+<div class="large-2 columns" id="dashboard" ng-controller="BoardCtrl">
     <h4 class="dashboard">
         <a href="#">Dashboard</a>
     </h4>
@@ -11,17 +11,9 @@
           <dt>Options</dt>
         </dl>
         <ul>
-          <li>
-            <input type="text" style="display: none;"><a class="name" href="#/projects/1/tasks">Kontinuous</a>
+          <li ng-repeat="board in boards">
+            <input type="text" style="display: none;"><a class="name" href="#/projects/1/tasks">{{board.name}}</a>
             <button class="delete" href="/projects/1">Delete</button>
-          </li>
-          <li>
-            <input type="text" style="display: none;"><a class="name" href="#/projects/2/tasks">Kanban</a>
-            <button class="delete" href="/projects/2">Delete</button>
-          </li>
-          <li>
-            <input type="text" style="display: none;"><a class="name" href="#/projects/3/tasks">Project X</a>
-            <button class="delete" href="/projects/3">Delete</button>
           </li>
         </ul>
       </li>
