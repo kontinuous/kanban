@@ -1,0 +1,26 @@
+<div class="row">
+  <h4>User info:</h4>
+  <span class="radius secondary label">User name:</span> {{user.name}}
+</div>
+<div class="row">
+  <h4>Boards</h4>
+  <div class="four columns">
+    <h5>My:</h5>
+    <ul>
+      <li ng-repeat="board in my_boards">
+        <span><a href="#/boards/{{board.id}}">{{board.name}}</a></span>
+      </li>
+    </ul>
+  </div>
+  <div class="four columns">
+    <h5>Shared with me:</h5>
+    <ul>
+      <li ng-repeat="board in shared_boards">
+        <span><a href="#/boards/{{board.id}}">{{board.name}}</a></span>
+      </li>
+    </ul>
+  </div>
+  <div class="four columns">
+
+  </div>
+</div>

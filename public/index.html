@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="kanban">
+<head>
+  <title>Kanban Tracker</title>
+  <!-- Included CSS Files (Compressed) -->
+  <link rel="stylesheet" href="stylesheets/normalize.css" />
+  <link rel="stylesheet" href="stylesheets/foundation.min.css" />
+  <link rel="stylesheet" href="stylesheets/jquery-ui-1.10.1.custom.css">
+  <link rel="stylesheet" href="stylesheets/angular-ui.css" />
+  <link rel="stylesheet" href="stylesheets/app.css" />
+
+  <script src="js/lib/jquery-1.7.2.js"></script>
+  <script src="js/lib/jquery-ui-1.8.18.js"></script>
+  <script src="js/lib/angular.js" ></script>
+  <script src="js/lib/angular-ui.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/angular-resource.js"></script>
+  <script src="js/kanban.js"></script>
+</head>
+<body>
+
+<div class="row">
+  <nav class="top-bar">
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="/">The kanban tracker</a></h1>
+      </li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="left">
+        <li class="divider"></li>
+        <li><a href="#" class="main">Boards</a></li>
+      </ul>
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="divider"></li>
+        <li><a href="#/profile" class="main">Profile</a></li>
+        <li><a href="/logout" class="main">Sign out</a></li>
+      </ul>
+    </section>
+  </nav>
+</div>
+
+<div ng-view></div>
+
+</body>
+</html>

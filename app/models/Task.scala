@@ -24,7 +24,7 @@ object Task {
     long("id") ~
     str("name") ~
     str("status") ~
-    long("board_id") map {
+    long("board") map {
       case id~name~status~board_id => Task(Id(id), name, status, board_id)
     }
   }
@@ -41,7 +41,7 @@ object Task {
 
   def create(task: Task): Task = {
     DB.withConnection { implicit c =>
-      val id: Option[Long] = SQL("insert into task (name, status, board_id) values ({name},{status},{board_id})").on(
+      val id: Option[Long] = SQL("insert into task (name, status, board) values ({name},{status},{board_id})").on(
         'name -> task.name,
         'status -> task.status,
         'board_id -> task.board
@@ -79,8 +79,8 @@ object Task {
   implicit val taskFormat = (
       (__ \ "id").formatNullable[Long] and
       (__ \ "name").format[String] and
-      (__ \ "status").format[String] and
-      (__ \ "board_id").format[Long]
-    )((id, name, status, board_id) => Task(id.map(Id(_)).getOrElse(NotAssigned), name, status, board_id),
-    (t: Task) => (t.id.toOption, t.name, t.status, t.board))
+      (__ \ "status").formatNullable[String] and
+      (__ \ "board_id").formatNullable[Long]
+    )((id, name, status, board_id) => Task(id.map(Id(_)).getOrElse(NotAssigned), name, status.getOrElse("pending"), board_id.getOrElse(-1)),
+    (t: Task) => (t.id.toOption, t.name, Some(t.status), Some(t.board)))
 }

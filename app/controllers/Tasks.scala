@@ -34,7 +34,7 @@ object Tasks extends Controller {
     request.body.validate[Task].fold(
       valid = { task =>
         val board = Board.show(bid)
-        val savedTask = Task.create(task.copy(id = board.id))
+        val savedTask = Task.create(task.copy(board = board.id.get))
         Ok(Json.toJson(savedTask))
       },
       invalid = ( e => BadRequest(e.toString()) )

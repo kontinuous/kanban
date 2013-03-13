@@ -1,0 +1,47 @@
+/* Artfully masterminded by ZURB  */
+
+/* -------------------------------------------------- 
+   Table of Contents
+-----------------------------------------------------
+:: Shared Styles
+:: Page Name 1
+:: Page Name 2
+*/
+
+
+/* -----------------------------------------
+   Shared Styles
+----------------------------------------- */
+
+
+
+/* -----------------------------------------
+   Page Name 1
+----------------------------------------- */
+
+
+
+
+/* -----------------------------------------
+   Page Name 2
+----------------------------------------- */
+
+ul.tasks li {
+    padding: 5px;
+    border: 1px solid #999;
+    background: #eee;
+    margin: 5px;
+    cursor: move;
+    list-style-type: none;
+}
+
+ul.tasks {
+  padding: 5px;
+  background: #eee;
+}
+
+.ailabs-header {
+    text-align: center;
+}
+
+
