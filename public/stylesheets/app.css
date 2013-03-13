@@ -26,6 +26,15 @@
    Page Name 2
 ----------------------------------------- */
 
+body, html {
+    height:100%;
+}
+
+body {
+    color: #2a3a48;
+    font: 13px "Lucida Grande", "Helvetica Neue", sans-serif;
+}
+
 ul.tasks li {
     padding: 5px;
     border: 1px solid #999;
@@ -44,4 +53,96 @@ ul.tasks {
     text-align: center;
 }
 
+.row {
+    max-width: 200em;
+}
+
+#main {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#dashboard {
+    background: #e1e7ec;
+    min-height: 300px;
+}
+
+body .dashboard {
+    display: block;
+    position: relative;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 10px 5px 5px 25px;
+    background: url(/images/icons/home.png) 6px 7px no-repeat;
+}
+
+body h4 {
+    cursor: default;
+}
+
+a {
+    text-decoration: none;
+}
+
+body .dashboard a {
+    color: #6f8193;
+    cursor: default;
+}
+
+body .header {
+    height: 40px;
+    box-sizing: border-box;
+    padding: 10px;
+    z-index: 9;
+    background: #445868;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#445868), to(#2a3a48));
+    background-image: -moz-linear-gradient(top, #445868, #2a3a48);
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.8);
+    height: 40px;
+}
+
+body .header a {
+    color: white;
+}
+
+#user {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+#user dt {
+    color: #fff;
+}
+
+#user dd {
+    margin: 0;
+    padding: 0;
+}
+
+#user dd a {
+    padding: 2px 5px;
+    border-radius: 3px;
+    border: 1px solid #192937;
+    background: rgba(187, 255, 255, 0.19999999999999996);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(187, 255, 255, 0.19999999999999996)), to(rgba(187, 255, 255, 0)));
+    background-image: -moz-linear-gradient(top, rgba(187, 255, 255, 0.19999999999999996), rgba(187, 255, 255, 0));
+    background-color: #2a3a48;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+    color: #c7d1d8;
+    cursor: pointer;
+}
+
+#user * {
+    display: inline-block;
+}
+
+#user dt span {
+    opacity: .5;
+    font-size: 11px;
+}
 

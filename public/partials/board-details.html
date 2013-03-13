@@ -1,5 +1,10 @@
 <div class="row">
-<div ng-controller="TaskCtrl">
+<div class="large-2 columns" id="dashboard">
+    <h4 class="dashboard">
+        <a href="#">Dashboard</a>
+    </h4>
+</div>
+<div ng-controller="TaskCtrl" class="large-10 columns" id="main">
   <div class="large-4 columns panel" ng-repeat="status in statuses">
     <h1>{{status.name}}</h1>
     <p>Total {{groupped[status.name].length}}</p>
