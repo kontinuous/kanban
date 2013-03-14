@@ -6,6 +6,7 @@ import securesocial.core.providers.Token
 import scala.Some
 import org.mindrot.jbcrypt.BCrypt
 import models.User
+import anorm.Id
 
 
 /**
@@ -27,12 +28,13 @@ class DBUserService(application: Application) extends UserServicePlugin(applicat
   }
 
   def save(user: Identity): Identity = {
-    User.create(
-      User(null,
-        user.firstName,
-        user.email,
-        user.passwordInfo.get.password,
-        None))
+    User.find(user.id.id) match {
+      case Some(u: User) => User.update(u)
+      case None => User.create(
+        User(Id(user.firstName),
+          user.passwordInfo.get.password,
+          user.email))
+    }
   }
 
   def save(token: Token) {

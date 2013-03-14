@@ -4,7 +4,6 @@ import anorm._
 import anorm.SqlParser._
 import play.api.db.DB
 import play.api.Play.current
-import org.mindrot.jbcrypt.BCrypt
 import securesocial.core._
 import anorm.~
 import anorm.Id
@@ -17,28 +16,28 @@ import securesocial.core.PasswordInfo
  * Date: 12.03.13
  * Time: 14:39
  */
-case class User (uid: Pk[Long], name: String, email: Option[String], password: String, salt: Option[String])  extends Identity{
+case class User (name: Pk[String], password: String, email: Option[String], isAdmin: Boolean = false)  extends Identity{
 
-  def id: UserId = UserId(uid.toString, null)
-  def firstName: String = name
+  def id: UserId = UserId(name.get, null)
+  def firstName: String = name.get
   def lastName: String = null
   def fullName: String = null
   def avatarUrl: Option[String] = None
   def authMethod: AuthenticationMethod = AuthenticationMethod.UserPassword
   def oAuth1Info: Option[OAuth1Info] = None
   def oAuth2Info: Option[OAuth2Info] = None
-  def passwordInfo: Option[PasswordInfo] = Some(PasswordInfo("bcrypt", password, salt))
+  def passwordInfo: Option[PasswordInfo] = Some(PasswordInfo("bcrypt", password, None))
+
 }
 
 object User {
   val user = {
-    long("id") ~
-      str("name") ~
-      str("email") ~
+    str("name") ~
       str("password") ~
-      get[Option[String]]("salt") map {
-      case id~name~email~password~salt =>
-        User(Id(id), name, Some(email), password, salt)
+      get[Option[String]]("email") ~
+      get[Boolean]("isAdmin") map {
+      case name~password~email~isAdmin =>
+        User(Id(name), password, email, isAdmin)
     }
   }
 
@@ -46,10 +45,10 @@ object User {
     SQL("select * from user").as(user *)
   }
 
-  def find(id: Long): User = DB.withConnection { implicit c =>
-    SQL("select * from user where id = {id}").on(
-      'id -> id
-    ).as(user.single)
+  def find(name: String): Option[User] = DB.withConnection { implicit c =>
+    SQL("select * from user where name = {name}").on(
+      'name -> name
+    ).as(user.singleOpt)
   }
 
   def findByEmail(email: String): Option[User] = DB.withConnection { implicit connection =>
@@ -60,32 +59,32 @@ object User {
 
   def create(user: User): User = {
     DB.withConnection { implicit c =>
-      val id: Option[Long] = SQL("insert into user (name, email, password, salt) values ({name},{email},{password},{salt})").on(
+      val id: Option[Long] = SQL("insert into user (name, password, email, isAdmin) values ({name},{password},{email},{isAdmin})").on(
         'name -> user.name,
-        'email -> user.email,
         'password -> user.password,
-        'salt -> user.salt
+        'email -> user.email,
+        'isAdmin -> user.isAdmin
       ).executeInsert()
-      user.copy(uid = Id(id.get))
+      user
     }
   }
 
-  def update(id: Long, user: User) = {
+  def update(user: User) : User = {
     DB.withConnection { implicit c =>
-      SQL("update user set name = {name}, email = {name}, password = {password}, salt = {salt} where id = {id}").on(
-        'id -> id,
+      SQL("update user set password = {password}, isAdmin = {isAdmin}, email = {email} where name = {name}").on(
         'name -> user.name,
-        'email -> user.email,
         'password -> user.password,
-        'salt -> user.salt
+        'email -> user.email,
+        'isAdmin -> user.isAdmin
       ).executeUpdate()
     }
+    user
   }
 
-  def delete(id: Long) {
+  def delete(name: String) {
     DB.withConnection { implicit c =>
-      SQL("delete from user where id = {id}").on(
-        'id -> id
+      SQL("delete from user where name = {name}").on(
+        'name -> name
       ).executeUpdate()
     }
   }
