@@ -1,7 +1,18 @@
-@(message: String)
+@(user: User)
 
-@main("Welcome to Play 2.1") {
-    
-    @play20.welcome(message)
-    
+@main("Kanban Tracker") {
+
+    <div class="row header">
+        <div class="large-3 columns">
+            <a href="#">----Put logo here!----</a>
+        </div>
+        <dl id="user">
+            <dt>@user.name <span>"({@user.email.getOrElse("None")})"</span></dt>
+            <dd>
+                <a href="/logout">Logout</a>
+            </dd>
+        </dl>
+    </div>
+
+    <div ng-view></div>
 }

@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Assets.at(path="/public", file="index.html")
+GET     /                           controllers.Application.index
 
 GET     /boards                     controllers.Boards.index
 GET     /boards/:bid                controllers.Boards.show(bid: Long)
@@ -15,27 +15,11 @@ GET     /boards/:bid/tasks/:tid     controllers.Tasks.show(bid: Long, tid: Long)
 POST    /boards/:bid/tasks          controllers.Tasks.create(bid: Long)
 POST    /boards/:bid/tasks/:tid     controllers.Tasks.update(bid: Long, tid: Long)
 
-
-# Login page
-GET     /login                      securesocial.controllers.LoginPage.login
-GET     /logout                     securesocial.controllers.LoginPage.logout
-
-# User Registration and password handling
-GET     /signup                     securesocial.controllers.Registration.startSignUp
-POST    /signup                     securesocial.controllers.Registration.handleStartSignUp
-GET     /signup/:token              securesocial.controllers.Registration.signUp(token)
-POST    /signup/:token              securesocial.controllers.Registration.handleSignUp(token)
-GET     /reset                      securesocial.controllers.Registration.startResetPassword
-POST    /reset                      securesocial.controllers.Registration.handleStartResetPassword
-GET     /reset/:token               securesocial.controllers.Registration.resetPassword(token)
-POST    /reset/:token               securesocial.controllers.Registration.handleResetPassword(token)
-GET     /password                   securesocial.controllers.PasswordChange.page
-POST    /password                   securesocial.controllers.PasswordChange.handlePasswordChange
-
-# Providers entry points
-GET     /authenticate/:provider     securesocial.controllers.ProviderController.authenticate(provider)
-POST    /authenticate/:provider     securesocial.controllers.ProviderController.authenticateByPost(provider)
-GET     /not-authorized             securesocial.controllers.ProviderController.notAuthorized
+GET     /login                      controllers.login.Login.login
+GET     /logout                     controllers.login.Login.logout
+POST    /authenticate               controllers.login.Login.authenticate
+GET     /signup                     controllers.login.Login.signup
+POST    /signup                     controllers.login.Login.create
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /*file               controllers.Assets.at(path="/public", file)

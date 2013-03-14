@@ -1,9 +1,8 @@
 package controllers
 
 import play.api.mvc.{Action, Controller}
-import play.api.libs.json.{JsSuccess, JsError, Json}
+import play.api.libs.json.Json
 import models.Board
-import models.Board.boardFormat
 
 /**
  * Alien Invaders Ltd.
@@ -12,11 +11,11 @@ import models.Board.boardFormat
  * Time: 11:58
  */
 object Boards extends Controller {
-  def index = Action {
+  def index = Action { request =>
     Ok(Json.toJson(Board.all()))
   }
 
-  def show(bid: Long) = Action {
+  def show(bid: Long) = Action { request =>
     Ok(Json.toJson(Board.show(bid)))
   }
 

@@ -2,9 +2,7 @@ package controllers
 
 import play.api.libs.json.Json
 import models.{Board, Task}
-import play.api.mvc.BodyParsers.parse
 import play.api.mvc.{Controller, Action}
-
 /**
  * Alien Invaders Ltd.
  * User: Aleksandr Khamutov
@@ -12,15 +10,15 @@ import play.api.mvc.{Controller, Action}
  * Time: 15:41
  */
 object Tasks extends Controller {
-  def index(bid: Long) = Action {
+  def index(bid: Long) = Action { implicit request =>
     Ok(Json.toJson(Task.by_board(bid)))
   }
 
-  def show(bid: Long, id: Long) = Action {
+  def show(bid: Long, id: Long) = Action { implicit request =>
     Ok(Json.toJson(Task.show(id)))
   }
 
-  def update(bid: Long, id: Long) = Action(parse.json) { request =>
+  def update(bid: Long, id: Long) = Action(parse.json) { implicit request =>
     request.body.validate[Task].fold(
       valid = { task =>
         Task.update(id, task)

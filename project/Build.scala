@@ -12,8 +12,7 @@ object ApplicationBuild extends Build {
     jdbc,
     anorm,
     "mysql" % "mysql-connector-java" % "5.1.23",
-    "org.mindrot" % "jbcrypt" % "0.3m",
-    "securesocial" % "securesocial" % "master-SNAPSHOT"
+    "org.mindrot" % "jbcrypt" % "0.3m"
   )
 
 
