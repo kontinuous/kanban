@@ -4,8 +4,6 @@ import anorm._
 import anorm.SqlParser._
 import play.api.db.DB
 import play.api.Play.current
-import anorm.~
-import anorm.Id
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import anorm.~

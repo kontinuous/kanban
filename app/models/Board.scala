@@ -99,7 +99,7 @@ object Board {
   implicit val boardFormat = (
       (__ \ "id").formatNullable[Long] and
       (__ \ "name").format[String] and
-      (__ \ "owner").format[String]
-    )((id, name, owner) => Board(id.map(Id(_)).getOrElse(NotAssigned), name, owner),
-      (b: Board) => (b.id.toOption, b.name, b.owner))
+      (__ \ "owner").formatNullable[String]
+    )((id, name, owner) => Board(id.map(Id(_)).getOrElse(NotAssigned), name, owner.getOrElse(null)),
+      (b: Board) => (b.id.toOption, b.name, Some(b.owner)))
 }

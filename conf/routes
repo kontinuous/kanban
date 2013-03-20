@@ -15,6 +15,11 @@ GET     /boards/:bid/tasks/:tid     controllers.Tasks.show(bid: Long, tid: Long)
 POST    /boards/:bid/tasks          controllers.Tasks.create(bid: Long)
 POST    /boards/:bid/tasks/:tid     controllers.Tasks.update(bid: Long, tid: Long)
 
+GET     /users                      controllers.Users.index
+GET     /users/profile              controllers.Users.profile
+GET     /users/shared               controllers.Users.shared
+GET     /users/:uid                 controllers.Users.show(uid: String)
+
 GET     /login                      controllers.login.Login.login
 GET     /logout                     controllers.login.Login.logout
 POST    /authenticate               controllers.login.Login.authenticate

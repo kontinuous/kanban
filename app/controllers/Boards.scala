@@ -13,7 +13,7 @@ import models.Board
  */
 object Boards extends Controller with Secured {
   def index = SecuredAction { name => request =>
-    Ok(Json.toJson(Board.all()))
+    Ok(Json.toJson(Board.findByOwner(name)))
   }
 
   def show(bid: Long) = SecuredAction { name => request =>
@@ -33,7 +33,7 @@ object Boards extends Controller with Secured {
   def create = SecuredAction(parse.json) { name => request =>
     request.body.validate[Board].fold(
         valid = { board =>
-          val savedBoard = Board.create(board)
+          val savedBoard = Board.create(board.copy(owner = name))
           Ok(Json.toJson(savedBoard))
         },
         invalid = ( e => BadRequest(e.toString) )

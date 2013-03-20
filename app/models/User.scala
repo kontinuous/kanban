@@ -111,9 +111,9 @@ object User {
     }
   }
 
-//  implicit val userFormat = (
-//    (__ \ "name").format[String] and
-//      (__ \ "email").formatNullable[String] and
-//    )((id, name) => User(id.map(Id(_)).getOrElse(NotAssigned), name),
-//    (b: User) => (b.id.toOption, b.name))
+  implicit val userFormat = (
+    (__ \ "name").format[String] and
+      (__ \ "email").formatNullable[String]
+    )((name, _) => User.find(name).get,
+    (b: User) => (b.name.get, b.email))
 }
