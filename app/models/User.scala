@@ -23,8 +23,8 @@ object User {
 //    User(name, password, salt, email, isAdmin)
 //  }
 
-  def apply(name: Pk[String], email: Option[String], password: String) : User = {
-    val user = User(name, null, null, email)
+  def apply(name: String, email: Option[String], password: String) : User = {
+    val user = User(Id(name), null, null, email)
     setPassword(user, password)
   }
 
@@ -57,7 +57,7 @@ object User {
 
   def create(user: User): User = {
     DB.withConnection { implicit c =>
-      val id: Option[Long] = SQL("insert into user (name, password, salt, email, isAdmin) values ({name},{password},{salt},{email},{isAdmin})").on(
+      SQL("insert into user (name, password, salt, email, isAdmin) values ({name},{password},{salt},{email},{isAdmin})").on(
         'name -> user.name,
         'password -> user.password,
         'salt -> user.salt,
@@ -89,16 +89,25 @@ object User {
     }
   }
 
+  def findByBoard(board: Long) : List[User] = DB.withConnection { implicit c =>
+    SQL("select b.* from user_board ub inner join board b on ud.id = b.board_id where ub.board_id = {bid}").on(
+      'bid -> board
+    ).as(user *)
+  }
+
   def setPassword(user: User, password: String) : User = {
     val key = BCrypt.gensalt()
     val hash = BCrypt.hashpw(password, key)
     user.copy(password = hash, salt = key)
   }
 
-  def authenticate(email: String, password: String): Option[User] = {
-    findByEmail(email) map {user =>
+  def authenticate(login: String, password: String): Option[User] = {
+    val check = {user: User =>
       val hash = BCrypt.hashpw(password, user.salt)
       if(hash == user.password) user else null
+    }
+    findByEmail(login) map check orElse {
+      find(login) map check
     }
   }
 

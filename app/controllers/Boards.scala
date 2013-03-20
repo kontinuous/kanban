@@ -1,5 +1,6 @@
 package controllers
 
+import login.Secured
 import play.api.mvc.{Action, Controller}
 import play.api.libs.json.Json
 import models.Board
@@ -10,16 +11,16 @@ import models.Board
  * Date: 12.03.13
  * Time: 11:58
  */
-object Boards extends Controller {
-  def index = Action { request =>
+object Boards extends Controller with Secured {
+  def index = SecuredAction { name => request =>
     Ok(Json.toJson(Board.all()))
   }
 
-  def show(bid: Long) = Action { request =>
+  def show(bid: Long) = SecuredAction { name => request =>
     Ok(Json.toJson(Board.show(bid)))
   }
 
-  def update(bid: Long) = Action(parse.json) { request =>
+  def update(bid: Long) = SecuredAction(parse.json) { name => request =>
     request.body.validate[Board].fold(
       valid = { board =>
         Board.update(bid, board)
@@ -29,7 +30,7 @@ object Boards extends Controller {
     )
   }
 
-  def create = Action(parse.json) { request =>
+  def create = SecuredAction(parse.json) { name => request =>
     request.body.validate[Board].fold(
         valid = { board =>
           val savedBoard = Board.create(board)

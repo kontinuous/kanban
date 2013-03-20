@@ -17,13 +17,14 @@ import play.api.libs.json.JsString
  * Time: 12:00
  */
 
-case class Board(id: Pk[Long], name: String)
+case class Board(id: Pk[Long], name: String, owner: String)
 
 object Board {
   val board = {
     long("id") ~
-    str("name") map {
-      case id~name => Board(Id(id), name)
+    str("name") ~
+    str("owner") map {
+      case id~name~owner => Board(Id(id), name, owner)
     }
   }
 
@@ -39,8 +40,9 @@ object Board {
 
   def create(board: Board): Board = {
     DB.withConnection { implicit c =>
-      val id: Option[Long] = SQL("insert into board (name) values ({name})").on(
-        'name -> board.name
+      val id: Option[Long] = SQL("insert into board (name, owner) values ({name}, {owner})").on(
+        'name -> board.name,
+        'owner -> board.owner
       ).executeInsert()
       board.copy(id = Id(id.get))
     }
@@ -50,7 +52,8 @@ object Board {
     DB.withConnection { implicit c =>
       SQL("update board set name = {name} where id = {id}").on(
         'id -> id,
-        'name -> board.name
+        'name -> board.name,
+        'owner -> board.owner
       ).executeUpdate()
     }
   }
@@ -63,9 +66,40 @@ object Board {
     }
   }
 
+  def findByUser(user: String) : List[Board] = DB.withConnection { implicit c =>
+    SQL("select b.* from user_board ub inner join board b on ud.id = b.board_id where ub.user_name = {name}").on(
+      'name -> user
+    ).as(Board.board *)
+  }
+
+  def findByOwner(owner: String) : List[Board] = DB.withConnection { implicit c =>
+    SQL("select b.* from board b where b.owner = {name}").on(
+      'name -> owner
+    ).as(Board.board *)
+  }
+
+  def shareToUser(board: Board, user: String) {
+    DB.withConnection { implicit c =>
+      SQL("insert into user_board (user_name, board_id) values ({name}, {bid})").on(
+        'name -> user,
+        'bid -> board.id
+      ).executeInsert()
+    }
+  }
+
+  def banUser(board: Board, user: String) {
+    DB.withConnection { implicit c =>
+      SQL("delete from user_board where user_name = {name} and board_id = {bid}").on(
+        'name -> user,
+        'bid -> board.id
+      ).executeUpdate()
+    }
+  }
+
   implicit val boardFormat = (
       (__ \ "id").formatNullable[Long] and
-      (__ \ "name").format[String]
-    )((id, name) => Board(id.map(Id(_)).getOrElse(NotAssigned), name),
-      (b: Board) => (b.id.toOption, b.name))
+      (__ \ "name").format[String] and
+      (__ \ "owner").format[String]
+    )((id, name, owner) => Board(id.map(Id(_)).getOrElse(NotAssigned), name, owner),
+      (b: Board) => (b.id.toOption, b.name, b.owner))
 }

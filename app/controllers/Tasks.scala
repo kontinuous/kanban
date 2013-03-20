@@ -1,5 +1,6 @@
 package controllers
 
+import login.Secured
 import play.api.libs.json.Json
 import models.{Board, Task}
 import play.api.mvc.{Controller, Action}
@@ -9,16 +10,16 @@ import play.api.mvc.{Controller, Action}
  * Date: 12.03.13
  * Time: 15:41
  */
-object Tasks extends Controller {
-  def index(bid: Long) = Action { implicit request =>
+object Tasks extends Controller with Secured {
+  def index(bid: Long) = SecuredAction { name => request =>
     Ok(Json.toJson(Task.by_board(bid)))
   }
 
-  def show(bid: Long, id: Long) = Action { implicit request =>
+  def show(bid: Long, id: Long) = SecuredAction { name => request =>
     Ok(Json.toJson(Task.show(id)))
   }
 
-  def update(bid: Long, id: Long) = Action(parse.json) { implicit request =>
+  def update(bid: Long, id: Long) = SecuredAction(parse.json) { name => request =>
     request.body.validate[Task].fold(
       valid = { task =>
         Task.update(id, task)
@@ -28,7 +29,7 @@ object Tasks extends Controller {
     )
   }
 
-  def create(bid: Long) = Action(parse.json) { request =>
+  def create(bid: Long) = SecuredAction(parse.json) { name => request =>
     request.body.validate[Task].fold(
       valid = { task =>
         val board = Board.show(bid)
