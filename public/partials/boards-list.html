@@ -1,35 +1,51 @@
 <div class="row">
-<div class="large-2 columns" id="dashboard" ng-controller="BoardCtrl">
-  <h4 class="dashboard">
-    <a href="#">Dashboard</a>
-  </h4>
-  <ul id="projects">
-    <li>
-      <span class="toggle"></span>
-      <input type="text" style="display: none;"><h4 class="groupName">AiLabs</h4>
-      <dl class="options">
-        <dt>Options</dt>
-      </dl>
-      <ul>
-        <li ng-repeat="board in boards" ng-controller="BoardEditorCtrl">
-          <ng-switch on="edit">
-            <div ng-switch-when="true">
-              <input type="text" ng-model="board.name" unfocus="disableEdit()" value="{{board.name}}">
-            </div>
-            <div ng-switch-default>
-              <a class="name" href="#/boards/{{board.id}}">{{board.name}}</a><span ng-click="enableEdit()">edit</span>
-            </div>
-          </ng-switch>
-          <button class="delete" href="/projects/1">Delete</button>
-        </li>
-      </ul>
-    </li>
-  </ul>
-  <form>
-    <div class="row collapse">
-        <input type="text" ng-model="boardName" placeholder="add new board name here" required>
-        <a class="new_button" type="submit" ng-click="saveBoard()">Add</a>
-    </div>
-  </form>
-</div>
+  <div class="large-2 columns" id="dashboard" ng-controller="BoardCtrl">
+    <h4 class="dashboard">
+      <a href="#">Dashboard</a>
+    </h4>
+    <ul id="projects">
+      <li>
+        <span class="toggle"></span>
+        <input type="text" style="display: none;"><h4 class="groupName">AiLabs</h4>
+        <dl class="options">
+          <dt>Options</dt>
+        </dl>
+        <ul>
+          <li ng-repeat="board in boards" ng-controller="BoardEditorCtrl">
+            <ng-switch on="edit">
+              <div ng-switch-when="true">
+                <input type="text" ng-model="board.name" unfocus="disableEdit()" value="{{board.name}}">
+              </div>
+              <div ng-switch-default>
+                <a class="name" href="#/boards/{{board.id}}">{{board.name}}</a><span ng-click="enableEdit()">edit</span>
+              </div>
+            </ng-switch>
+            <button class="delete" href="/projects/1">Delete</button>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <form>
+      <div class="row collapse">
+          <input type="text" ng-model="boardName" placeholder="add new board name here" required>
+          <a class="new_button" type="submit" ng-click="saveBoard()">Add</a>
+      </div>
+    </form>
+  </div>
+  <div ng-controller="BoardCtrl" class="large-10 columns" id="main">
+    <article class="tasks" id="tasks">
+      <div class="folder" ng-repeat="board in boards" ng-controller="BoardTaskCtrl">
+        <header>
+          <h3>{{board.name}}</h3>
+          <span class="counter">{{tasks.length}}</span>
+        </header>
+        <ul class="list">
+          <li ng-repeat="task in tasks">
+            <h4>{{task.name}}</h4>
+            <span class="assignedTo">Not assigned</span>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </div>
 </div>

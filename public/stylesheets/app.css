@@ -314,3 +314,30 @@ form.addTask {
     left: -3000px;
     visibility: hidden;
 }
+
+#main > article {
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 20px;
+    overflow: auto;
+}
+
+.counter {
+    color: #888;
+    font-size: 11px;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+    margin: 2px 5px;
+    padding: 0px 3px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.tasks .folder > header h3 {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    color: #7a8a99;
+    text-shadow: 1px 1px 0 #fff;
+}

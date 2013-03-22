@@ -37,6 +37,10 @@ function BoardCtrl($scope, Board) {
   };
 }
 
+function BoardTaskCtrl($scope, Board, Task) {
+  $scope.tasks = Task.query({boardId:$scope.board.id});
+}
+
 function BoardEditCtrl($scope, Board, $routeParams, $location, User, $http) {
 
   $scope.boardId = $routeParams.boardId;
