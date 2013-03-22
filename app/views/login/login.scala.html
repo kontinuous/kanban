@@ -1,6 +1,20 @@
 @(form: Form[Option[User]])(implicit flash: Flash)
 
-@main("Kanban Tracker: Login") {
+<!DOCTYPE html>
+<html ng-app="kanban">
+<head>
+    <title>AiLabs Kanban Login</title>
+        <!-- Included CSS Files (Compressed) -->
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/normalize.css")" />
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/app.css")" />
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/login.css")" />
+</head>
+<body>
+    <div class="row header">
+        <div class="large-3 columns">
+            <a href="#">----Put logo here!----</a>
+        </div>
+    </div>
 
     @helper.form(controllers.login.routes.Login.authenticate) {
 
@@ -29,4 +43,6 @@
         </p>
 
     }
-}
+</body>
+</html>
+
