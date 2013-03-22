@@ -16,8 +16,8 @@
               <div ng-switch-when="true">
                 <input type="text" ng-model="board.name" unfocus="disableEdit()" value="{{board.name}}">
               </div>
-              <div ng-switch-default ng-click="enableEdit()">
-                <a class="name" href="#/boards/{{board.id}}">{{board.name}}</a><span ng-click="enableEdit">edit</span>
+              <div ng-switch-default>
+                <a class="name" href="#/boards/{{board.id}}">{{board.name}}</a><span ng-click="enableEdit()">edit</span>
               </div>
             </ng-switch>
             <button class="delete" href="/projects/1">Delete</button>
@@ -25,7 +25,12 @@
         </ul>
       </li>
     </ul>
-  <button id="newGroup">New group</button>
+  <form>
+    <div class="row collapse">
+      <input type="text" ng-model="boardName" placeholder="add new board name here" required>
+      <a class="new_button" type="submit" ng-click="saveBoard()">Add</a>
+    </div>
+  </form>
 </div>
 <div ng-controller="TaskCtrl" class="large-10 columns" id="main">
   <div class="large-12 columns">
